@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+
+var xhr;
+
+$(function(){
+	createXmlHttpRequest();
+	$("#xml11").click(function(){
+	    startXhr();
+	});
+});
+	
+function createXmlHttpRequest(){ //크로스 브라우징
+	if(window.ActiveXObject){
+		xhr = new ActiveXObject("Msxml2.XMLHTTP");
+		alert("Msxml2.XMLHTTP");
+	} else if (window.XMLHttpRequest){
+		xhr = new XMLHttpRequest();
+		alert("XMLHttpRequest");
+	} else {
+		document.write("Ajax를 지원하지 않습니다.");
+	}
+} 
+
+function startXhr(){
+	xhr.open("get", "testxml.xml", true);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			if(xhr.status == 200){
+				alert("요청 성공");
+				//process();
+			}else{					
+				alert(xhr.status);
+			}
+		}else{
+			alert(xhr.readyState);
+		}
+	}
+	xhr.send(null);
+}
+
+function process(){
+	//var data = xhr.responseText;
+	//alert(data);
+	var data = xhr.responseXML;
+	var itemNode = data.getElementsByTagName("item");
+	//alert(itemNode.length);
+	var codeNode = data.getElementsByTagName("code");
+	var sangNode = data.getElementsByTagName("sang");
+	
+	var str = "";
+	for(i=0; i < itemNode.length; i++){
+		str += codeNode[i].childNodes[0].nodeValue;
+		str += sangNode[i].childNodes[0].nodeValue;
+		str += "<br>";
+	}
+	
+	document.getElementById("disp").innerHTML = str;
+}
+</script>
+</head>
+<body>
+	<input type="button" value="XML 자료 처리" id="xml11">
+	<br>
+	<div id="disp"></div>
+</body>
+</html>

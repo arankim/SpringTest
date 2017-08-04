@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+<typeAlias type="spring.dto.ReplyDto" alias="rdto"/>
+<typeAlias type="spring.dto.BbsAnswerDto" alias="badto"/>
+<typeAlias type="spring.dto.MemberDto" alias="mdto"/>
+</typeAliases>
+<mappers>
+ <mapper resource="mybatis/setting/ReplySQL.xml"/>
+ <mapper resource="mybatis/setting/AnswerSQL.xml" />
+ <mapper resource="mybatis/setting/MemberSQL.xml" />
+</mappers>
+
+</configuration>

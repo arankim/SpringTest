@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<abc>
+	<aa term="kbs" part="no 1.">
+		<mes>공영방송</mes>
+	</aa>
+	<aa term="sbs" part="no 2.">
+		<mes>수도권 중심 방송</mes>
+	</aa>
+	<aa term="jtbc" part="no 3.">
+		<mes>우리 모두의 방송</mes>
+	</aa>
+</abc>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyboard">
+	<select id="totalCountOfReply" resultType="int">
+		select count(*) from replybbs
+	</select>
+
+	<select id="maxNumOfReply" resultType="int">
+		select nvl(max(num),0) from replybbs
+	</select>
+
+	<update id="updateRestepOfreply" parameterType="HashMap">
+	<![CDATA[
+	update replybbs set re_step=re_step+1 where ref=#{ref} and re_step>#{re_step}
+	]]>
+	</update>
+
+	<select id="getSeqOfReply" resultType="int">
+		select seqjsp.nextval from dual
+	</select>
+
+	<insert id="insertOfReply" parameterType="rdto">
+		insert into replybbs
+		values(#{num}, #{writer}, #{subject}, #{content}, 0, #{ref}, #{re_step}, #{re_level}, sysdate)
+	</insert>
+
+	<select id="selectOneOfReply" parameterType="int" resultType="rdto">
+		select * from replybbs where num=#{num}
+	</select>
+
+	<update id="updateReadCountOfReply" parameterType="rdto">
+		update replybbs set readcount=readcount+1 where num=#{num}
+	</update>
+
+	<select id="selectListOfBoard" parameterType="HashMap" resultType="rdto">
+     <![CDATA[
+       select a.* from (select rownum as RNUM, b.* from (select * from replybbs c order by ref desc, re_step asc)b)a where a.RNUM>=#{start} and a.RNUM<=#{end}
+     ]]>
+	</select>
+	
+	<update id="boardUpdateOfReply" parameterType="rdto">
+	update replybbs set (writer=#{writer},subject=#{subject},content=#{content}) where num=#{num}
+	</update>
+
+<!-- 
+<delete id="deletebyNumOfAnswer" parameterType="int">
+delete from bbsanswer where num=#{num}
+</delete>
+
+<delete id="deletebyPkOfAnswer" parameterType="int">
+delete from bbsanswer where pk = #{pk}
+</delete> -->
+
+
+</mapper> 
+
+

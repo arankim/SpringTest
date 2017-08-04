@@ -1,0 +1,46 @@
+<%@page import="db.dao.GuestDao"%>
+<%@page import="db.dto.GuestDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<style type="text/css">
+#cl-dashboard {
+	display: none;
+}
+</style>
+</head>
+<body>
+<%
+int num = Integer.parseInt(request.getParameter("num"));
+String pass = request.getParameter("pass");
+int currentPage  = Integer.parseInt(request.getParameter("pageNumber"));
+boolean result;
+
+GuestDao dao = new GuestDao();
+GuestDto dto = new GuestDto();
+result = dao.isEqualPassGuest(num, pass);
+if(result){
+	%>
+	해당 방명록을 삭제하였습니다.
+	<%
+	dao.deleteGuest(num);
+	response.sendRedirect("../layoutsero.jsp?main=guest/guestlist.jsp?pageNum="+currentPage);
+} else {
+	%>
+<script type="text/javascript">
+alert("비밀번호가 일치하지 않습니다.")
+history.back(-1);
+</script>
+<%
+}
+%>
+</body>
+</html>

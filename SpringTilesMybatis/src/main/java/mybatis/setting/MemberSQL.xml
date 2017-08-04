@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+<select id="idSearchOfMember" parameterType="String" resultType="int">
+select count(*) from member where id=#{id}
+</select>
+
+<insert id="insertOfMember" parameterType="mdto">
+insert into member value(seqjsp.nextval, #{name}. #{id}, #{pass}, #{hp}. #{address}, #{email}, sysdate, #{birth})
+</insert>
+
+<select id="selectNameOfMember" parameterType="String" resultType="String">
+select name from member where id=#{id}
+</select>
+
+<select id="loginEqualIdPassOfMember" parameterType="HashMap" resultType="int">
+select count(*) from member where id=#{id} and pass=#{pass}
+</select>
+
+</mapper>

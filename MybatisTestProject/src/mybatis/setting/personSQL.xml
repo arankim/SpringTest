@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="person">
+<select id="totalCountOfPerson" resultType="int">
+select count(*) from person
+</select>
+
+<insert id="insertOfPerson" parameterType="pdto">
+insert into person values(seqjsp.nextval, #{name}, #{hp}, sysdate)
+</insert>
+
+<select id="selectAllDatasOfPerson" resultType="pdto">
+select * from person order by num asc
+</select>
+</mapper>

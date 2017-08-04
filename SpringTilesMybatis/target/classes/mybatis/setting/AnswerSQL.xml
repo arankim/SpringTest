@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="answer">
+<insert id="insertOfBbsAnswer" parameterType="badto">
+insert into bbsanswer values(seqjsp.nextval, #{num},#{nickname},#{content},sysdate)
+</insert>
+<select id="selectNumOfBbsAnswer" parameterType="int" resultType="badto">
+select * from bbsanswer where num=#{num} order by pk desc
+</select>
+<select id="countOfBbsAnswer" parameterType="int" resultType="int">
+select count(*) from bbsanswer where num=#{num}
+</select>
+
+<!-- 
+<delete id="deletebyNumOfAnswer">
+
+</delete>
+ -->
+
+</mapper>

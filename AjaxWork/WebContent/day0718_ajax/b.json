@@ -1,0 +1,28 @@
+[
+	{
+		"term": "java study",
+		"part": "part 1.",
+		"definition": "class,control,interface",
+		"quote": [
+			"quote1",
+			"easy java"
+		],
+		"author": "hong kil dong"
+	},
+		{
+		"term": "jsp study",
+		"part": "part 2.",
+		"definition": "form tag,request,response",
+		"quote": [
+			"quote2",
+			"easy jsp"
+		],
+		"author": "kim a ran"
+	},
+	
+			{
+		"term": "spring study",
+		"part": "part 3.",
+		"definition": "aop,di"
+	}
+]

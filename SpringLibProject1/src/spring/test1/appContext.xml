@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+<bean id="hello1" class="spring.test1.Hello"></bean>
+
+<bean id="hello2" class="spring.test1.Hello">
+<constructor-arg>
+<value>강호동</value>
+</constructor-arg>
+<property name="phone" value="010-123-1234"></property>
+<property name="address" value="서울시 영등포구"></property>
+</bean>
+
+<bean id="person" class="spring.test1.Person">
+<!-- <constructor-arg ref="hello2"></constructor-arg> -->
+<constructor-arg>
+<ref bean="hello2"></ref>
+</constructor-arg>
+<property name="blood" value="AB"></property>
+</bean>
+</beans>

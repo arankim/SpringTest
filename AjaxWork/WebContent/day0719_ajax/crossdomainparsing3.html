@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="../js/xml2json.js"></script>
+<script type="text/javascript" src="../js/jquery.xdomainajax.js"></script>
+<style type="text/css">
+	.city{
+		color: red;
+		font-weight: bold;
+	}
+</style>
+<script type="text/javascript">
+var url = "http://www.kma.go.kr/XML/weather/sfc_web_map.xml";
+$(function(){
+	$("#city").keyup(function(e){
+		if(e.keyCode==13){
+			var mycity=$("#city").val();
+			$.ajax({
+			     url: url
+			    ,type: 'GET'
+			    ,success: function(res) {
+			        var myXML = res.responseText;
+			        myXML = $.parseXML(myXML);	
+			        
+			        var s="";
+			       	s+=$(myXML).find("weather").attr("year")+"-";
+			       	s+=$(myXML).find("weather").attr("month")+"-";
+			       	s+=$(myXML).find("weather").attr("day")+"&nbsp;";
+			       	s+=$(myXML).find("weather").attr("hour")+"시<hr>";
+			       	$("#out").html(s);
+			       	
+			       	var ss="";
+			       	var sw=false;
+			       	var min=100,max=-100;
+		        	var maxs="",mins="";
+		        	
+			       	$(myXML).find("local").each(function(no){
+			        	var lo=$(this);
+			        	var city=lo.text();
+			        	var ta=lo.attr("ta");
+			        	var desc=lo.attr("desc");			        	
+			        	
+			        	if(mycity==city){
+			        		sw=true;
+			        		if(desc=='맑음')
+			        			ss+="<img src='../image/맑음.PNG' width='100'><br><br>";
+			        		else if(desc=='구름조금')
+				        		ss+="<img src='../image/구름조금.PNG' width='100'><br><br>";
+				        	else if(desc=='구름많음')
+					        	ss+="<img src='../image/구름많음.png' width='100'><br><br>";
+					        			
+			        		ss+="<b>["+city+"] 지역 날씨정보</b><br>";
+			        		ss+=desc+"&nbsp;현재기온:"+ta+"<br>";
+			        	}
+			        	
+			        	//기온 비교하기(최고,최저지역 구하기)
+			        	if(min>ta){
+		        			mins="기온이 제일 낮은 지역<br>&nbsp;&nbsp;&nbsp;"+
+		        				city+"&nbsp;"+desc+"&nbsp;현재기온:"+ta;
+		        			min=ta;
+		        		}
+		        		if(max<ta){
+		        			maxs="기온이 제일 높은 지역<br>&nbsp;&nbsp;&nbsp;"+
+		        				city+"&nbsp;"+desc+"&nbsp;현재기온:"+ta;	
+		        			max=ta;
+		        		}
+			        });
+			       	if(sw)
+			        	$("#out").append(ss);
+			       	else
+			       		$("#out").append("찾는 지역의 날씨정보가 없습니다");
+			       	$("#out").append("<hr>"+maxs+"<br>"+mins);
+			    }
+			});
+			
+		}
+	});
+});
+
+</script>
+</head>
+<body>
+<div id="in">
+	<b>날씨를 검색할 지역을 입력해 주세요</b><br>
+	<input type="text" id="city" size="12">
+</div>
+<div id="out"></div>
+</body>
+</html>
